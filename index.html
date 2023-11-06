@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Form</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <script type="text/javascript">
+      (function() {
+        emailjs.init('Mh4bazWKtEnOha-Zb');
+
+      })();
+    </script>
+    
+    <script type="text/javascript">
+      window.onload = function() {
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+          event.preventDefault();
+            // generate a five digit number for the contact_number variable
+            this.contact_number.value = Math.random() * 100000 | 0;
+            // these IDs from the previous steps
+            emailjs.sendForm('contact_service', 'contact_form', this)
+            .then(function() {
+              console.log('SUCCESS!');
+
+            }, function(error) {
+              console.log('FAILED...', error);
+
+            });
+        });
+      }
+    </script>
+</head>
+
+<body>
+  <form id="contact-form">
+    <input type="hidden" name="contact_number">
+    <input type="text" id="ip" name="ip">
+    <input type="submit" value="Send">
+  </form>
+
+  <script type="application/javascript">
+    function getIP(json) {
+      document.getElementById("ip").value = json.ip;
+      /*
+      setInterval(clickFunction, 100)
+  
+      function clickFunction() {
+      
+      }
+      */
+    }
+  </script>
+
+  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+
+</body>
+</html>
